@@ -3,7 +3,8 @@ import pandas as pd
 from .models import Movie, Rating
 from django.shortcuts import render
 from django.http import JsonResponse
-from services.ml_utilis import train_model, get_user_recommendations
+from .services.ml_utilis import *
+
 
 algo = train_model()
 
