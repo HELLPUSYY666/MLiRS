@@ -10,9 +10,17 @@ algo = train_model()
 
 
 def user_recommendations_view(request, user_id):
+    movies = pd.read_csv('/Users/zakariyapolevchishikov/PycharmProjects/MLiRS/AIProject/MLrec/services/dataset/movies.csv')
     recommendations = get_user_recommendations(user_id, algo)
-    data = [{"title": movie.title, "genres": movie.genres} for movie in recommendations]
+
+    data = []
+    for movie_id in recommendations['movieId']:
+        movie = movies[movies['movieId'] == movie_id]
+        if not movie.empty:
+            data.append({"title": movie.iloc[0]['title'], "genres": movie.iloc[0]['genres']})
+
     return JsonResponse(data, safe=False)
+
 
 
 def load_data():
